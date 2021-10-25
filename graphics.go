@@ -10,6 +10,8 @@ type IGraphics interface {
 
 	IsKeyPressed(key input.Key) bool
 
+	Name() string
+
 	PostTick()
 
 	PreTick()

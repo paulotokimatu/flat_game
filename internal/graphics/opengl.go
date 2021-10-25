@@ -23,6 +23,10 @@ type OpenGl struct {
 	window      *glfw.Window
 }
 
+func (openGl *OpenGl) Name() string {
+	return "opengl"
+}
+
 func (openGl *OpenGl) Setup(config *flat_game.GameConfig) {
 	// openGl.game = game
 	openGl.bgColor = config.BgColor

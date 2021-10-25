@@ -20,7 +20,10 @@ type Game struct {
 
 func NewGame(config flat_game.GameConfig) *Game {
 	// TODO think about injecting this factory
-	graphics := NewGraphics(GraphicsLib(config.Graphics))
+	graphics, err := NewGraphics(GraphicsLib(config.Graphics))
+	if err != nil {
+		panic(err)
+	}
 
 	game := &Game{
 		config:   config,
