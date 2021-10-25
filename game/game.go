@@ -127,12 +127,15 @@ func (game *Game) AddKeyEventListener(listener input.IKeyEventListener) {
 	game.keyEventListeners = append(game.keyEventListeners, listener)
 }
 
-func (game *Game) AddTexture(name string, fileName string) flat_game.ITexture {
-	faceTexture := graphicsLib.NewTextureFromFile(name, fileName)
+func (game *Game) AddTexture(name string, fileName string) (flat_game.ITexture, error) {
+	texture, err := graphicsLib.NewTextureFromFile(name, fileName)
+	if err != nil {
+		return texture, err
+	}
 
-	game.textures[faceTexture.Name] = faceTexture
+	game.textures[texture.Name] = texture
 
-	return faceTexture
+	return texture, nil
 }
 
 func (game *Game) TextureByName(name string) flat_game.ITexture {

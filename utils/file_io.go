@@ -12,8 +12,10 @@ import (
 func ReadImage(fileName string) (*image.RGBA, error) {
 	imgFile, err := os.Open(fileName)
 	if err != nil {
-		return nil, fmt.Errorf("texture %q not found on disk: %v", fileName, err)
+		return nil, fmt.Errorf("image %q not found on disk: %v", fileName, err)
 	}
+
+	defer imgFile.Close()
 
 	img, _, err := image.Decode(imgFile)
 	if err != nil {
@@ -33,8 +35,10 @@ func ReadImage(fileName string) (*image.RGBA, error) {
 func ReadTextFile(fileName string) (string, error) {
 	file, err := os.Open(fileName)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("file %q not found on disk: %v", fileName, err)
 	}
+
+	defer file.Close()
 
 	data, err := ioutil.ReadAll(file)
 	if err != nil {
@@ -45,18 +49,18 @@ func ReadTextFile(fileName string) (string, error) {
 		return "", err
 	}
 
-	return string(data), err
+	return string(data), nil
 }
 
-func ReadJsonFile(fileName string) []byte {
-	jsonFile, err := os.Open(fileName)
+func ReadJsonFile(fileName string) ([]byte, error) {
+	file, err := os.Open(fileName)
 	if err != nil {
-		fmt.Println(err)
+		return nil, fmt.Errorf("file %q not found on disk: %v", fileName, err)
 	}
 
-	defer jsonFile.Close()
+	defer file.Close()
 
-	byteValue, _ := ioutil.ReadAll(jsonFile)
+	byteValue, _ := ioutil.ReadAll(file)
 
-	return byteValue
+	return byteValue, nil
 }

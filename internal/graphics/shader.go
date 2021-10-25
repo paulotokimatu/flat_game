@@ -17,17 +17,17 @@ type Shader struct {
 func NewShaderFromFiles(name string, vertexShaderFileName string, fragmentShaderFileName string) (*Shader, error) {
 	vertexShader, err := utils.ReadTextFile(vertexShaderFileName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	fragmentShader, err := utils.ReadTextFile(fragmentShaderFileName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	shader, err := NewShader(name, vertexShader+"\x00", fragmentShader+"\x00")
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	return shader, nil

@@ -30,16 +30,16 @@ func NewTexture(name string, width int32, height int32, pixels []uint8) *Texture
 	return &Texture{name, textureId}
 }
 
-func NewTextureFromFile(name string, fileName string) *Texture {
+func NewTextureFromFile(name string, fileName string) (*Texture, error) {
 	rgba, err := utils.ReadImage(fileName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	imageWidth := int32(rgba.Rect.Size().X)
 	imageHeight := int32(rgba.Rect.Size().Y)
 
-	return NewTexture(name, imageWidth, imageHeight, rgba.Pix)
+	return NewTexture(name, imageWidth, imageHeight, rgba.Pix), nil
 }
 
 func (texture *Texture) Bind() {
