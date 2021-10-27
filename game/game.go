@@ -98,7 +98,7 @@ func (game *Game) tick(delta float32) {
 		if entity.IsPendingRemoval() {
 			game.removeEntity(entity)
 		} else {
-			entity.Tick(delta)
+			entity.Tick(game, delta)
 		}
 	}
 

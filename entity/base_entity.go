@@ -6,7 +6,6 @@ import (
 )
 
 type BaseEntity struct {
-	game              flat_game.IGame
 	keyEventListeners []flat_game.IExt
 	name              string
 	exts              []flat_game.IExt
@@ -15,7 +14,7 @@ type BaseEntity struct {
 	size              *utils.Vec2
 }
 
-func NewEntity(EntityConfig *EntityConfig, game flat_game.IGame) *BaseEntity {
+func NewEntity(EntityConfig *EntityConfig) *BaseEntity {
 	position := utils.Vec2{
 		X: EntityConfig.Position.X,
 		Y: EntityConfig.Position.Y,
@@ -25,7 +24,6 @@ func NewEntity(EntityConfig *EntityConfig, game flat_game.IGame) *BaseEntity {
 		Y: EntityConfig.Size.Y,
 	}
 	entity := &BaseEntity{
-		game:              game,
 		keyEventListeners: nil,
 		name:              EntityConfig.Name,
 		exts:              nil,
@@ -37,10 +35,10 @@ func NewEntity(EntityConfig *EntityConfig, game flat_game.IGame) *BaseEntity {
 	return entity
 }
 
-func (entity *BaseEntity) Tick(delta float32) {
+func (entity *BaseEntity) Tick(game flat_game.IGame, delta float32) {
 	for i := 0; i < len(entity.exts); i++ {
-		if entity.exts[i].CanTick(entity.game) {
-			entity.exts[i].Tick(entity.game, delta)
+		if entity.exts[i].CanTick(game) {
+			entity.exts[i].Tick(game, delta)
 		}
 	}
 }

@@ -11,7 +11,7 @@ type IGame interface {
 
 	AddKeyEventListener(listener input.IKeyEventListener)
 
-	AddTexture(name string, fileName string) ITexture
+	AddTexture(name string, fileName string) (ITexture, error)
 
 	Config() GameConfig
 

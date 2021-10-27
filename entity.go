@@ -17,7 +17,7 @@ type IEntity interface {
 
 	Size() *utils.Vec2
 
-	Tick(delta float32)
+	Tick(game IGame, delta float32)
 
 	IsPendingRemoval() bool
 
