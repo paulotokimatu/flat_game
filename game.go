@@ -1,25 +1,15 @@
 package flat_game
 
-import (
-	"flat_game/input"
-)
-
 type IGame interface {
-	AddCollision(entityA IEntity, entityB IEntity)
-
-	AddEntity(entity IEntity)
-
-	AddKeyEventListener(listener input.IKeyEventListener)
-
 	AddTexture(name string, fileName string) (ITexture, error)
 
-	Config() GameConfig
-
-	EntityByName(name string) IEntity
+	Config() Config
 
 	Graphics() IGraphics
 
-	OnKeyEvent(key input.Key, event input.KeyEvent)
+	Scene() IScene
+
+	SetScene(scene IScene)
 
 	TextureByName(name string) ITexture
 }

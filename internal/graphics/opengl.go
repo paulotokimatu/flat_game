@@ -27,7 +27,7 @@ func (openGl *OpenGl) Name() string {
 	return "opengl"
 }
 
-func (openGl *OpenGl) Setup(config *flat_game.GameConfig) {
+func (openGl *OpenGl) Setup(config *flat_game.Config) {
 	// openGl.game = game
 	openGl.bgColor = config.BgColor
 

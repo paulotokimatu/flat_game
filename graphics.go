@@ -16,8 +16,8 @@ type IGraphics interface {
 
 	PreTick()
 
-	// Setup(GameConfig, IGame)
-	Setup(config *GameConfig)
+	// Setup(Config, IGame)
+	Setup(config *Config)
 
 	Terminate()
 

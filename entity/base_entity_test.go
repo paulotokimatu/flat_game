@@ -23,6 +23,8 @@ func (ext *MockExt) Tick(game flat_game.IGame, delta float32) {
 }
 
 func TestTickShouldCallTicksOfExts(t *testing.T) {
+	delta := float32(1)
+
 	entityConfig := entity.EntityConfig{
 		Name:     "square",
 		Position: utils.Vec2{X: 0, Y: 0},
@@ -33,13 +35,13 @@ func TestTickShouldCallTicksOfExts(t *testing.T) {
 	ext1 := &MockExt{canTick: false}
 	ext2 := &MockExt{canTick: true}
 
-	ext2.On("Tick", nil, float32(1)).Return(nil)
+	ext2.On("Tick", nil, delta).Return(nil)
 
 	entity.AddExt(ext1)
 	entity.AddExt(ext2)
 
-	entity.Tick(nil, float32(1))
+	entity.Tick(nil, delta)
 
-	ext1.AssertNotCalled(t, "Tick", nil, 1, "ext1 should not have been ticked")
-	ext2.AssertNotCalled(t, "Tick", nil, 1, "ext2 should have been ticked")
+	ext1.AssertNotCalled(t, "Tick", nil, delta)
+	ext2.AssertCalled(t, "Tick", nil, delta)
 }

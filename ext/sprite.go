@@ -6,7 +6,7 @@ import (
 )
 
 type SpriteExt struct {
-	parent  flat_game.IEntity
+	parent  flat_game.IEntity // instead of saving the parent, better pass as argument?
 	texture flat_game.ITexture
 }
 
