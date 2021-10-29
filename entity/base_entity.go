@@ -14,22 +14,14 @@ type BaseEntity struct {
 	size              *utils.Vec2
 }
 
-func NewEntity(Config *Config) *BaseEntity {
-	position := utils.Vec2{
-		X: Config.Position.X,
-		Y: Config.Position.Y,
-	}
-	size := utils.Vec2{
-		X: Config.Size.X,
-		Y: Config.Size.Y,
-	}
+func NewEntity(config *Config) *BaseEntity {
 	entity := &BaseEntity{
 		keyEventListeners: nil,
-		name:              Config.Name,
+		name:              config.Name,
 		exts:              nil,
 		pendingRemoval:    false,
-		position:          &position,
-		size:              &size,
+		position:          &config.Position,
+		size:              &config.Size,
 	}
 
 	return entity
