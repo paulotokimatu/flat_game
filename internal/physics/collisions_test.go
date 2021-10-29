@@ -21,7 +21,7 @@ func (entity *MockEntity) OnCollision(externalEntity flat_game.IEntity) {
 
 func TestShouldExecuteCollisionChecks(t *testing.T) {
 	entity1 := &MockEntity{
-		BaseEntity: *entity.NewEntity(&entity.EntityConfig{
+		BaseEntity: *entity.NewEntity(&entity.Config{
 			Position: utils.Vec2{
 				X: 10,
 				Y: 10,
@@ -33,7 +33,7 @@ func TestShouldExecuteCollisionChecks(t *testing.T) {
 		}),
 	}
 	entity2 := &MockEntity{
-		BaseEntity: *entity.NewEntity(&entity.EntityConfig{
+		BaseEntity: *entity.NewEntity(&entity.Config{
 			Position: utils.Vec2{
 				X: 30,
 				Y: 30,
@@ -45,7 +45,7 @@ func TestShouldExecuteCollisionChecks(t *testing.T) {
 		}),
 	}
 	entity3 := &MockEntity{
-		BaseEntity: *entity.NewEntity(&entity.EntityConfig{
+		BaseEntity: *entity.NewEntity(&entity.Config{
 			Position: utils.Vec2{
 				X: 10,
 				Y: 10,
@@ -57,7 +57,7 @@ func TestShouldExecuteCollisionChecks(t *testing.T) {
 		}),
 	}
 	entity4 := &MockEntity{
-		BaseEntity: *entity.NewEntity(&entity.EntityConfig{
+		BaseEntity: *entity.NewEntity(&entity.Config{
 			Position: utils.Vec2{
 				X: 15,
 				Y: 15,

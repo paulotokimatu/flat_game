@@ -25,7 +25,7 @@ func (ext *MockExt) Tick(game flat_game.IGame, delta float32) {
 func TestTickShouldCallTicksOfExts(t *testing.T) {
 	delta := float32(1)
 
-	entityConfig := entity.EntityConfig{
+	entityConfig := entity.Config{
 		Name:     "square",
 		Position: utils.Vec2{X: 0, Y: 0},
 		Size:     utils.Vec2{X: 10, Y: 10},
