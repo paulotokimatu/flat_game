@@ -1,9 +1,13 @@
 package entity
 
-import "flat_game/utils"
+import (
+	"flat_game"
+	"flat_game/utils"
+)
 
 type Config struct {
 	Name     string
 	Position utils.Vec2
 	Size     utils.Vec2
+	Children []flat_game.IEntity
 }

@@ -7,10 +7,9 @@ import (
 
 type LabelEnt struct {
 	flat_game.IEntity
-	color  *utils.Vec3
-	font   flat_game.IFont
-	parent flat_game.IEntity
-	text   string
+	color *utils.Vec3
+	font  flat_game.IFont
+	text  string
 }
 
 func NewLabelEnt(config *Config, font flat_game.IFont, text string, color *utils.Vec3) *LabelEnt {

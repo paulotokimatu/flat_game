@@ -15,10 +15,16 @@ type BaseEntity struct {
 }
 
 func NewBaseEntity(config *Config) *BaseEntity {
+	children := map[string]flat_game.IEntity{}
+
+	for _, child := range config.Children {
+		children[child.Name()] = child
+	}
+
 	entity := &BaseEntity{
 		keyEventListeners: nil,
 		name:              config.Name,
-		children:          map[string]flat_game.IEntity{},
+		children:          children,
 		pendingRemoval:    false,
 		position:          &config.Position,
 		size:              &config.Size,
