@@ -59,7 +59,7 @@ func (renderer *LabelRenderer) Draw(
 	text string,
 	startDrawX float32,
 	startDrawY float32,
-	color utils.Vec3,
+	color *utils.Vec3,
 ) {
 	if len(text) == 0 {
 		return

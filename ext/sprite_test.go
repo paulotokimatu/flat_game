@@ -13,53 +13,45 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type MockGame struct {
+type SpriteExtMockGame struct {
 	game.Game
 	graphics flat_game.IGraphics
 }
 
-func (game *MockGame) Graphics() flat_game.IGraphics {
+func (game *SpriteExtMockGame) Graphics() flat_game.IGraphics {
 	return game.graphics
 }
 
-type MockGraphics struct {
+type SpriteExtMockGraphics struct {
 	mock.Mock
 	graphics.OpenGl
 }
 
-func (graphics *MockGraphics) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color utils.Vec3) {
+func (graphics *SpriteExtMockGraphics) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color *utils.Vec3) {
 	graphics.Called(texture, position, size, color)
 }
 
-type MockEntity struct {
+type SpriteExtMockEntity struct {
 	entity.BaseEntity
 }
 
-func (entity *MockEntity) Position() *utils.Vec2 {
-	return nil
-}
-
-func (entity *MockEntity) Size() *utils.Vec2 {
-	return nil
-}
-
-func TestCanAlwaysTick(t *testing.T) {
+func TestSpriteExtCanAlwaysTick(t *testing.T) {
 	ext := ext.NewSpriteExt(nil, nil)
 
 	assert.True(t, ext.CanTick(nil), "canTick should not return false")
 }
 
-func TestTickShouldDraw(t *testing.T) {
-	mockGraphics := MockGraphics{}
+func TestSpriteExtTickShouldDraw(t *testing.T) {
+	mockGraphics := SpriteExtMockGraphics{}
 
-	game := MockGame{
+	game := SpriteExtMockGame{
 		graphics: &mockGraphics,
 	}
-	ext := ext.NewSpriteExt(&MockEntity{}, nil)
+	ext := ext.NewSpriteExt(&SpriteExtMockEntity{}, nil)
 
-	mockGraphics.On("DrawSprite", nil, (*utils.Vec2)(nil), (*utils.Vec2)(nil), utils.Vec3{X: 1, Y: 1, Z: 1}).Return(nil)
+	mockGraphics.On("DrawSprite", nil, (*utils.Vec2)(nil), (*utils.Vec2)(nil), &utils.Vec3{X: 1, Y: 1, Z: 1}).Return(nil)
 
 	ext.Tick(&game, 1.0)
 
-	mockGraphics.AssertCalled(t, "DrawSprite", nil, (*utils.Vec2)(nil), (*utils.Vec2)(nil), utils.Vec3{X: 1, Y: 1, Z: 1})
+	mockGraphics.AssertCalled(t, "DrawSprite", nil, (*utils.Vec2)(nil), (*utils.Vec2)(nil), &utils.Vec3{X: 1, Y: 1, Z: 1})
 }

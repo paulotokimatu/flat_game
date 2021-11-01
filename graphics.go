@@ -6,9 +6,9 @@ import (
 )
 
 type IGraphics interface {
-	DrawLabel(font IFont, text string, position *utils.Vec2, color utils.Vec3)
+	DrawLabel(font IFont, text string, position *utils.Vec2, color *utils.Vec3)
 
-	DrawSprite(texture ITexture, position *utils.Vec2, size *utils.Vec2, color utils.Vec3)
+	DrawSprite(texture ITexture, position *utils.Vec2, size *utils.Vec2, color *utils.Vec3)
 
 	IsKeyPressed(key input.Key) bool
 

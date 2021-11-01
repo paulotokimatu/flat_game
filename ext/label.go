@@ -6,14 +6,16 @@ import (
 )
 
 type LabelExt struct {
-	parent flat_game.IEntity
+	color  *utils.Vec3
 	font   flat_game.IFont
+	parent flat_game.IEntity
 	text   string
 }
 
-func NewLabelExt(parent flat_game.IEntity, font flat_game.IFont, text string) *LabelExt {
+func NewLabelExt(parent flat_game.IEntity, font flat_game.IFont, text string, color *utils.Vec3) *LabelExt {
 	return &LabelExt{
 		parent: parent,
+		color:  color,
 		font:   font,
 		text:   text,
 	}
@@ -28,11 +30,7 @@ func (ext *LabelExt) Tick(game flat_game.IGame, delta float32) {
 		ext.font,
 		ext.text,
 		ext.parent.Position(),
-		utils.Vec3{
-			X: 1.0,
-			Y: 1.0,
-			Z: 1.0,
-		},
+		ext.color,
 	)
 }
 

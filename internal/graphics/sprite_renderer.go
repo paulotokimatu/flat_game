@@ -42,7 +42,7 @@ func NewSpriteRenderer(shader *Shader) (*SpriteRenderer, error) {
 	return &SpriteRenderer{shader, vao}, nil
 }
 
-func (renderer *SpriteRenderer) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color utils.Vec3) {
+func (renderer *SpriteRenderer) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color *utils.Vec3) {
 	// model = mgl32.Translate2D(model, mgl32.Vec3(position, 0.0))
 	// model = mgl32.Translate2D(model, mgl32.Vec3(0.5 * size.x, 0.5 * size.y, 0.0))
 

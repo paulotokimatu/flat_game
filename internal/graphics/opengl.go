@@ -132,17 +132,17 @@ func (openGl *OpenGl) keyCallback(window *glfw.Window, key glfw.Key, scancode in
 	}
 }
 
-func (openGl *OpenGl) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color utils.Vec3) {
+func (openGl *OpenGl) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color *utils.Vec3) {
 	openGl.renderer.DrawSprite(texture, position, size, color)
 }
 
-func (openGl *OpenGl) DrawLabel(font flat_game.IFont, text string, position *utils.Vec2, color utils.Vec3) {
+func (openGl *OpenGl) DrawLabel(font flat_game.IFont, text string, position *utils.Vec2, color *utils.Vec3) {
 	openGl.labelRenderer.Draw(
 		font,
 		text,
 		position.X,
 		position.Y,
-		utils.Vec3{0.5, 0.5, 0.5},
+		color,
 	)
 }
 
