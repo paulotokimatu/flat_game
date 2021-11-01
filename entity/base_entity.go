@@ -6,19 +6,19 @@ import (
 )
 
 type BaseEntity struct {
+	children          map[string]flat_game.IEntity
 	keyEventListeners []flat_game.IExt
 	name              string
-	exts              []flat_game.IExt
 	pendingRemoval    bool
 	position          *utils.Vec2
 	size              *utils.Vec2
 }
 
-func NewEntity(config *Config) *BaseEntity {
+func NewBaseEntity(config *Config) *BaseEntity {
 	entity := &BaseEntity{
 		keyEventListeners: nil,
 		name:              config.Name,
-		exts:              nil,
+		children:          map[string]flat_game.IEntity{},
 		pendingRemoval:    false,
 		position:          &config.Position,
 		size:              &config.Size,
@@ -27,13 +27,11 @@ func NewEntity(config *Config) *BaseEntity {
 	return entity
 }
 
-func (entity *BaseEntity) Tick(game flat_game.IGame, delta float32) {
-	for i := 0; i < len(entity.exts); i++ {
-		if entity.exts[i].CanTick(game) {
-			entity.exts[i].Tick(game, delta)
-		}
-	}
+func (entity *BaseEntity) CanTick(game flat_game.IGame) bool {
+	return true
 }
+
+func (entity *BaseEntity) Tick(game flat_game.IGame, parent flat_game.IEntity, delta float32) {}
 
 func (entity *BaseEntity) Name() string {
 	return entity.name
@@ -51,8 +49,20 @@ func (entity *BaseEntity) Size() *utils.Vec2 {
 	return entity.size
 }
 
-func (entity *BaseEntity) AddExt(node flat_game.IExt) {
-	entity.exts = append(entity.exts, node)
+func (entity *BaseEntity) SetSize(size *utils.Vec2) {
+	entity.size = size
+}
+
+func (entity *BaseEntity) AddChild(child flat_game.IEntity) {
+	entity.children[child.Name()] = child
+}
+
+func (entity *BaseEntity) Children() map[string]flat_game.IEntity {
+	return entity.children
+}
+
+func (entity *BaseEntity) RemoveChild(child flat_game.IEntity) {
+	delete(entity.children, child.Name())
 }
 
 func (entity *BaseEntity) OnCollision(externalEntity flat_game.IEntity) {

@@ -21,7 +21,7 @@ func (entity *MockEntity) Name() string {
 	return entity.name
 }
 
-func (entity *MockEntity) Tick(game flat_game.IGame, delta float32) {
+func (entity *MockEntity) Tick(game flat_game.IGame, parent flat_game.IEntity, delta float32) {
 	entity.Called(game, delta)
 }
 

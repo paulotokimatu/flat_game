@@ -5,7 +5,11 @@ import (
 )
 
 type IEntity interface {
-	AddExt(node IExt)
+	AddChild(entity IEntity)
+
+	CanTick(game IGame) bool
+
+	Children() map[string]IEntity
 
 	Name() string
 
@@ -13,11 +17,13 @@ type IEntity interface {
 
 	Position() *utils.Vec2
 
+	RemoveChild(child IEntity)
+
 	SetPosition(position *utils.Vec2)
 
 	Size() *utils.Vec2
 
-	Tick(game IGame, delta float32)
+	Tick(game IGame, parent IEntity, delta float32)
 
 	IsPendingRemoval() bool
 
