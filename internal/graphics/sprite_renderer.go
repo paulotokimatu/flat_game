@@ -35,9 +35,9 @@ func NewSpriteRenderer(shader *Shader) (*SpriteRenderer, error) {
 	gl.BindBuffer(gl.ARRAY_BUFFER, vbo)
 	gl.BufferData(gl.ARRAY_BUFFER, len(vertices)*4, gl.Ptr(vertices), gl.STATIC_DRAW)
 
-	vertAttrib := uint32(gl.GetAttribLocation(shader.ProgramId, gl.Str("vertex\x00")))
-	gl.EnableVertexAttribArray(vertAttrib)
-	gl.VertexAttribPointerWithOffset(vertAttrib, 4, gl.FLOAT, false, 4*4, 0)
+	vertexAttrib := uint32(gl.GetAttribLocation(shader.ProgramId, gl.Str("vertex\x00")))
+	gl.EnableVertexAttribArray(vertexAttrib)
+	gl.VertexAttribPointerWithOffset(vertexAttrib, 4, gl.FLOAT, false, 4*4, 0)
 
 	return &SpriteRenderer{shader, vao}, nil
 }
@@ -63,10 +63,8 @@ func (renderer *SpriteRenderer) DrawSprite(texture flat_game.ITexture, position 
 
 	texture.Bind()
 
-	// gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
-	// gl.DrawArrays(gl.TRIANGLES, 0, 3*2*2)
 	gl.DrawArrays(gl.TRIANGLES, 0, 6)
-	// gl.BindVertexArray(0)
+	gl.BindVertexArray(0)
 }
 
 // func (renderer *SpriteRenderer) cleanUp() {

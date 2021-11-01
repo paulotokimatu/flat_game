@@ -32,24 +32,24 @@ func ReadImage(fileName string) (*image.RGBA, error) {
 	return rgba, nil
 }
 
-func ReadTextFile(fileName string) (string, error) {
+func ReadTextFile(fileName string) ([]byte, error) {
 	file, err := os.Open(fileName)
 	if err != nil {
-		return "", fmt.Errorf("file %q not found on disk: %v", fileName, err)
+		return nil, fmt.Errorf("file %q not found on disk: %v", fileName, err)
 	}
 
 	defer file.Close()
 
 	data, err := ioutil.ReadAll(file)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	if err = file.Close(); err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return string(data), nil
+	return data, nil
 }
 
 func ReadJsonFile(fileName string) ([]byte, error) {

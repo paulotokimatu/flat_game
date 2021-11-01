@@ -25,7 +25,7 @@ func NewShaderFromFiles(name string, vertexShaderFileName string, fragmentShader
 		return nil, err
 	}
 
-	shader, err := NewShader(name, vertexShader+"\x00", fragmentShader+"\x00")
+	shader, err := NewShader(name, string(vertexShader)+"\x00", string(fragmentShader)+"\x00")
 	if err != nil {
 		return nil, err
 	}
@@ -103,12 +103,28 @@ func (shader *Shader) SetInteger(name string, value int32, useShader bool) {
 	gl.Uniform1i(gl.GetUniformLocation(shader.ProgramId, gl.Str(name+"\x00")), value)
 }
 
+func (shader *Shader) SetVector2f(name string, value mgl32.Vec2, useShader bool) {
+	if useShader {
+		shader.Use()
+	}
+
+	gl.Uniform2f(gl.GetUniformLocation(shader.ProgramId, gl.Str(name+"\x00")), value.X(), value.Y())
+}
+
 func (shader *Shader) SetVector3f(name string, value mgl32.Vec3, useShader bool) {
 	if useShader {
 		shader.Use()
 	}
 
 	gl.Uniform3f(gl.GetUniformLocation(shader.ProgramId, gl.Str(name+"\x00")), value.X(), value.Y(), value.Z())
+}
+
+func (shader *Shader) SetVector4f(name string, value mgl32.Vec4, useShader bool) {
+	if useShader {
+		shader.Use()
+	}
+
+	gl.Uniform4f(gl.GetUniformLocation(shader.ProgramId, gl.Str(name+"\x00")), value.X(), value.Y(), value.Z(), value.W())
 }
 
 func (shader *Shader) SetMatrix4(name string, matrix *mgl32.Mat4, useShader bool) {

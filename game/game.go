@@ -9,6 +9,7 @@ import (
 type Game struct {
 	config       flat_game.Config
 	currentScene flat_game.IScene
+	fonts        map[string]flat_game.IFont
 	graphics     flat_game.IGraphics
 	lastTick     time.Time
 	textures     map[string]flat_game.ITexture
@@ -23,6 +24,7 @@ func NewGame(config flat_game.Config) *Game {
 
 	game := &Game{
 		config:   config,
+		fonts:    map[string]flat_game.IFont{},
 		graphics: graphics,
 		textures: map[string]flat_game.ITexture{},
 	}
@@ -107,4 +109,25 @@ func (game *Game) Scene() flat_game.IScene {
 
 func (game *Game) SetScene(scene flat_game.IScene) {
 	game.currentScene = scene
+}
+
+func (game *Game) AddFont(
+	name string,
+	fileName string,
+	charCodeMin rune,
+	charCodeMax rune,
+	scale int,
+) (flat_game.IFont, error) {
+	font, err := graphicsLib.NewFontFromFile(name, fileName, charCodeMin, charCodeMax, scale)
+	if err != nil {
+		return nil, err
+	}
+
+	game.fonts[name] = font
+
+	return font, nil
+}
+
+func (game *Game) FontByName(name string) flat_game.IFont {
+	return game.fonts[name]
 }

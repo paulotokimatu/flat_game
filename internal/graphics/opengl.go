@@ -16,11 +16,12 @@ import (
 
 type OpenGl struct {
 	// game        internal.IGame
-	bgColor     utils.Vec3
-	keysPressed [glfw.KeyLast]bool
-	renderer    *SpriteRenderer
-	shaders     map[string]*Shader
-	window      *glfw.Window
+	bgColor       utils.Vec3
+	keysPressed   [glfw.KeyLast]bool
+	renderer      *SpriteRenderer
+	labelRenderer *LabelRenderer
+	shaders       map[string]*Shader
+	window        *glfw.Window
 }
 
 func (openGl *OpenGl) Name() string {
@@ -67,9 +68,7 @@ func (openGl *OpenGl) Setup(config *flat_game.Config) {
 	if err != nil {
 		panic(err)
 	}
-
 	spriteShader.Use()
-
 	spriteShader.SetInteger("sprite", 0, false)
 
 	projection := mgl32.Ortho2D(0.0, config.Size.X, config.Size.Y, 0)
@@ -80,7 +79,14 @@ func (openGl *OpenGl) Setup(config *flat_game.Config) {
 		panic(err)
 	}
 
+	labelShader, err := NewShaderFromFiles("sprite", shaderFolder+"label.vert", shaderFolder+"label.frag")
+	if err != nil {
+		panic(err)
+	}
+	labelRenderer, _ := NewLabelRenderer(labelShader)
+
 	openGl.renderer = renderer
+	openGl.labelRenderer = labelRenderer
 }
 
 func (openGl *OpenGl) Terminate() {
@@ -128,6 +134,16 @@ func (openGl *OpenGl) keyCallback(window *glfw.Window, key glfw.Key, scancode in
 
 func (openGl *OpenGl) DrawSprite(texture flat_game.ITexture, position *utils.Vec2, size *utils.Vec2, color utils.Vec3) {
 	openGl.renderer.DrawSprite(texture, position, size, color)
+}
+
+func (openGl *OpenGl) DrawLabel(font flat_game.IFont, text string, position *utils.Vec2, color utils.Vec3) {
+	openGl.labelRenderer.Draw(
+		font,
+		text,
+		position.X,
+		position.Y,
+		utils.Vec3{0.5, 0.5, 0.5},
+	)
 }
 
 func basePath() string {
