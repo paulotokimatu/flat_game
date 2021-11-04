@@ -28,7 +28,7 @@ func (entity *MockEntity) Tick(game flat_game.IGame, parent flat_game.IEntity, d
 func TestShouldTickEntities(t *testing.T) {
 	delta := float32(1)
 
-	scene := scene.NewScene()
+	scene := scene.NewScene("foo")
 
 	entity1 := &MockEntity{name: "entity1"}
 	entity1.SetPendingRemoval(true)

@@ -10,12 +10,18 @@ type Scene struct {
 	collisions        [][2]flat_game.IEntity
 	entities          map[string]flat_game.IEntity
 	keyEventListeners []input.IKeyEventListener // It is better to create an object so it only triggers for some keys
+	name              string
 }
 
-func NewScene() *Scene {
+func NewScene(name string) *Scene {
 	return &Scene{
 		entities: map[string]flat_game.IEntity{},
+		name:     name,
 	}
+}
+
+func (scene *Scene) Name() string {
+	return scene.name
 }
 
 func (scene *Scene) Tick(game flat_game.IGame, delta float32) {

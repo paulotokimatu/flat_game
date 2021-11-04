@@ -11,6 +11,8 @@ type IScene interface {
 
 	EntityByName(name string) IEntity
 
+	Name() string
+
 	OnKeyEvent(key input.Key, event input.KeyEvent)
 
 	Tick(game IGame, delta float32)
