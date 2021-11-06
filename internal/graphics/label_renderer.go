@@ -8,11 +8,6 @@ import (
 	"github.com/go-gl/mathgl/mgl32"
 )
 
-const (
-	charCodeMin = rune(32)
-	charCodeMax = rune(127)
-)
-
 type LabelRenderer struct {
 	shader *Shader
 	vao    uint32

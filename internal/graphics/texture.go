@@ -15,7 +15,6 @@ func NewTexture(name string, width int32, height int32, pixels []uint8) *Texture
 	var textureId uint32
 
 	gl.GenTextures(1, &textureId)
-	gl.ActiveTexture(gl.TEXTURE0)
 
 	gl.BindTexture(gl.TEXTURE_2D, textureId)
 	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(pixels))
@@ -25,7 +24,7 @@ func NewTexture(name string, width int32, height int32, pixels []uint8) *Texture
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
 
-	// gl.BindTexture(gl.TEXTURE_2D, 0)
+	gl.BindTexture(gl.TEXTURE_2D, 0)
 
 	return &Texture{name, textureId}
 }

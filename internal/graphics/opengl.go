@@ -63,6 +63,12 @@ func (openGl *OpenGl) Setup(config *flat_game.Config) {
 	version := gl.GoStr(gl.GetString(gl.VERSION))
 	fmt.Println("OpenGL version", version)
 
+	// gl.Enable(gl.DEPTH)
+	gl.Enable(gl.BLEND)
+	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+	gl.Disable(gl.DEPTH_TEST)
+	gl.DepthFunc(gl.LESS)
+
 	shaderFolder := basePath() + "/shaders/"
 	spriteShader, err := NewShaderFromFiles("sprite", shaderFolder+"sprite.vert", shaderFolder+"sprite.frag")
 	if err != nil {
@@ -101,6 +107,7 @@ func (openGl *OpenGl) PreTick() {
 	glfw.PollEvents()
 
 	gl.ClearColor(openGl.bgColor.X, openGl.bgColor.Y, openGl.bgColor.Z, 1.0)
+	// gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
