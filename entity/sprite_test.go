@@ -35,7 +35,7 @@ func TestSpriteExtTickShouldDraw(t *testing.T) {
 	game := SpriteEntMockGame{
 		graphics: &mockGraphics,
 	}
-	ent := entity.NewSpriteEnt(&entity.Config{Name: "foo"}, nil)
+	ent := entity.NewSpriteEnt(&entity.Config{Name: "foo"}, nil, true)
 
 	parent := entity.NewBaseEntity(&entity.Config{Name: "parent"})
 

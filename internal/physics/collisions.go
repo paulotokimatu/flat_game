@@ -23,8 +23,8 @@ func ExecuteCollisions(entities [][2]flat_game.IEntity) {
 		entityB := entities[i][1]
 
 		if doCollisionsOverlap(entityA, entityB) {
-			(entityA).OnCollision(entityB)
-			(entityB).OnCollision(entityA)
+			entityA.OnCollision(entityB)
+			entityB.OnCollision(entityA)
 		}
 	}
 }

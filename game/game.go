@@ -47,7 +47,7 @@ func (game *Game) Run() {
 
 		game.preTick()
 
-		game.tick(delta)
+		game.Tick(delta)
 
 		game.postTick()
 
@@ -78,10 +78,10 @@ func (game *Game) preTick() {
 	game.graphics.PreTick()
 }
 
-func (game *Game) tick(delta float32) {
-	game.graphics.Tick()
+func (game *Game) Tick(delta float32) {
+	// game.graphics.Tick()
 
-	game.currentScene.Tick(game, delta)
+	runTick(game, nil, game.currentScene, delta)
 }
 
 func (game *Game) postTick() {
@@ -130,4 +130,31 @@ func (game *Game) AddFont(
 
 func (game *Game) FontByName(name string) flat_game.IFont {
 	return game.fonts[name]
+}
+
+func runTick(game flat_game.IGame, parent flat_game.IEntity, entity flat_game.IEntity, delta float32) {
+	for _, childToAdd := range entity.ChildrenToAdd() {
+		entity.CommitChild(childToAdd)
+	}
+	entity.ClearChildrenToAdd()
+
+	childrenToPersist := []string{}
+
+	for _, childName := range entity.ChildrenNames() {
+		child := entity.ChildByName(childName)
+
+		if child.IsPendingRemoval() {
+			entity.RemoveChild(child)
+
+			continue
+		}
+
+		childrenToPersist = append(childrenToPersist, child.Name())
+
+		runTick(game, entity, child, delta)
+	}
+
+	entity.Tick(game, parent, delta)
+
+	entity.UpdateChildrenNames(childrenToPersist)
 }

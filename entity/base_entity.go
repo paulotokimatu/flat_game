@@ -7,6 +7,8 @@ import (
 
 type BaseEntity struct {
 	children          map[string]flat_game.IEntity
+	childrenNames     []string
+	childrenToAdd     []flat_game.IEntity
 	keyEventListeners []flat_game.IExt
 	name              string
 	pendingRemoval    bool
@@ -16,8 +18,10 @@ type BaseEntity struct {
 
 func NewBaseEntity(config *Config) *BaseEntity {
 	children := map[string]flat_game.IEntity{}
+	childrenNames := []string{}
 
 	for _, child := range config.Children {
+		childrenNames = append(childrenNames, child.Name())
 		children[child.Name()] = child
 	}
 
@@ -25,6 +29,7 @@ func NewBaseEntity(config *Config) *BaseEntity {
 		keyEventListeners: nil,
 		name:              config.Name,
 		children:          children,
+		childrenNames:     childrenNames,
 		pendingRemoval:    false,
 		position:          &config.Position,
 		size:              &config.Size,
@@ -60,11 +65,32 @@ func (entity *BaseEntity) SetSize(size *utils.Vec2) {
 }
 
 func (entity *BaseEntity) AddChild(child flat_game.IEntity) {
-	entity.children[child.Name()] = child
+	entity.childrenToAdd = append(entity.childrenToAdd, child)
 }
 
-func (entity *BaseEntity) Children() map[string]flat_game.IEntity {
-	return entity.children
+func (entity *BaseEntity) CommitChild(childToAdd flat_game.IEntity) {
+	entity.childrenNames = append(entity.childrenNames, childToAdd.Name())
+	entity.children[childToAdd.Name()] = childToAdd
+}
+
+func (entity *BaseEntity) ChildByName(name string) flat_game.IEntity {
+	return entity.children[name]
+}
+
+func (entity *BaseEntity) ChildrenNames() []string {
+	return entity.childrenNames
+}
+
+func (entity *BaseEntity) UpdateChildrenNames(childrenNames []string) {
+	entity.childrenNames = childrenNames
+}
+
+func (entity *BaseEntity) ChildrenToAdd() []flat_game.IEntity {
+	return entity.childrenToAdd
+}
+
+func (entity *BaseEntity) ClearChildrenToAdd() {
+	entity.childrenToAdd = []flat_game.IEntity{}
 }
 
 func (entity *BaseEntity) RemoveChild(child flat_game.IEntity) {
