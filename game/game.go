@@ -16,12 +16,15 @@ type Game struct {
 }
 
 func NewGame(config flat_game.Config) *Game {
-	// TODO think about injecting this factory
 	graphics, err := NewGraphics(GraphicsLib(config.Graphics))
 	if err != nil {
 		panic(err)
 	}
 
+	return NewGameWithGraphics(config, graphics)
+}
+
+func NewGameWithGraphics(config flat_game.Config, graphics flat_game.IGraphics) *Game {
 	game := &Game{
 		config:   config,
 		fonts:    map[string]flat_game.IFont{},
@@ -79,7 +82,7 @@ func (game *Game) preTick() {
 }
 
 func (game *Game) Tick(delta float32) {
-	// game.graphics.Tick()
+	game.graphics.Tick()
 
 	runTick(game, nil, game.currentScene, delta)
 }

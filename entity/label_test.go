@@ -35,11 +35,11 @@ func TestTickShouldDraw(t *testing.T) {
 	game := LabelEntMockGame{
 		graphics: &mockGraphics,
 	}
-	ext := entity.NewLabelEnt(&entity.Config{Name: "label"}, nil, "foo", nil)
+	ent := entity.NewLabelEnt(&entity.Config{Name: "label"}, nil, "foo", nil)
 
 	mockGraphics.On("DrawLabel", nil, "foo", &utils.Vec2{X: 0, Y: 0}, (*utils.Vec3)(nil)).Return(nil)
 
-	ext.Tick(&game, nil, 1.0)
+	ent.Tick(&game, nil, 1.0)
 
 	mockGraphics.AssertCalled(t, "DrawLabel", nil, "foo", &utils.Vec2{X: 0, Y: 0}, (*utils.Vec3)(nil))
 }

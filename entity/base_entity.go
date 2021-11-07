@@ -10,7 +10,7 @@ type BaseEntity struct {
 	childrenNames     []string
 	childrenToAdd     []flat_game.IEntity
 	customData        map[string]interface{}
-	keyEventListeners []flat_game.IExt
+	keyEventListeners []flat_game.IEntity
 	name              string
 	pendingRemoval    bool
 	position          *utils.Vec2

@@ -10,32 +10,43 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type MockEntity struct {
+type GameMockGraphics struct {
+	flat_game.IGraphics
+}
+
+func (entity *GameMockGraphics) Setup(config *flat_game.Config) {}
+
+func (entity *GameMockGraphics) Tick() {}
+
+type GameMockEntity struct {
 	name string
 	mock.Mock
 	entity.BaseEntity
 }
 
-func (entity *MockEntity) Name() string {
+func (entity *GameMockEntity) Name() string {
 	return entity.name
 }
 
-func (entity *MockEntity) Tick(game flat_game.IGame, parent flat_game.IEntity, delta float32) {
+func (entity *GameMockEntity) Tick(game flat_game.IGame, parent flat_game.IEntity, delta float32) {
 	entity.Called(game, parent, delta)
 }
 
 func TestShouldTickEntities(t *testing.T) {
-	mockGame := &game.Game{}
+	mockGame := game.NewGameWithGraphics(
+		flat_game.Config{},
+		&GameMockGraphics{},
+	)
 
 	delta := float32(1)
 
 	scene := entity.NewScene(&entity.Config{Name: "foo"})
 	mockGame.SetScene(scene)
 
-	entity1 := &MockEntity{name: "entity1"}
+	entity1 := &GameMockEntity{name: "entity1"}
 	entity1.SetPendingRemoval(true)
 
-	entity2 := &MockEntity{name: "entity2"}
+	entity2 := &GameMockEntity{name: "entity2"}
 	entity2.On("Tick", mockGame, scene, delta).Return(nil)
 
 	scene.AddChild(entity1)
