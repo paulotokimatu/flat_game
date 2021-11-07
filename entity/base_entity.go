@@ -9,6 +9,7 @@ type BaseEntity struct {
 	children          map[string]flat_game.IEntity
 	childrenNames     []string
 	childrenToAdd     []flat_game.IEntity
+	customData        map[string]interface{}
 	keyEventListeners []flat_game.IExt
 	name              string
 	pendingRemoval    bool
@@ -106,4 +107,12 @@ func (entity *BaseEntity) IsPendingRemoval() bool {
 
 func (entity *BaseEntity) SetPendingRemoval(pendingRemoval bool) {
 	entity.pendingRemoval = pendingRemoval
+}
+
+func (entity *BaseEntity) CustomData(key string) interface{} {
+	return entity.customData[key]
+}
+
+func (entity *BaseEntity) SetCustomData(key string, data interface{}) {
+	entity.customData[key] = data
 }

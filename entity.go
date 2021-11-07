@@ -5,6 +5,10 @@ import (
 )
 
 type IEntity interface {
+	CustomData(key string) interface{}
+
+	SetCustomData(key string, data interface{})
+
 	Name() string
 
 	OnCollision(externalEntity IEntity)
