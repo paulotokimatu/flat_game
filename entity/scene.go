@@ -25,8 +25,10 @@ func (scene *Scene) Tick(game flat_game.IGame, parent flat_game.IEntity, delta f
 }
 
 func (scene *Scene) OnKeyEvent(key input.Key, event input.KeyEvent) {
-	for i := 0; i < len(scene.keyEventListeners); i++ {
-		scene.keyEventListeners[i].OnKeyEvent(key, event)
+	listeners := scene.keyEventListeners
+
+	for _, listener := range listeners {
+		listener.OnKeyEvent(key, event)
 	}
 }
 

@@ -2,6 +2,7 @@ package game
 
 import (
 	"flat_game"
+	"flat_game/input"
 	graphicsLib "flat_game/internal/graphics"
 	"time"
 )
@@ -32,8 +33,7 @@ func NewGameWithGraphics(config flat_game.Config, graphics flat_game.IGraphics) 
 		textures: map[string]flat_game.ITexture{},
 	}
 
-	// game.graphics.Setup(config, game)
-	game.graphics.Setup(&config)
+	game.graphics.Setup(&config, game.onKeyEvent)
 
 	return game
 }
@@ -160,4 +160,8 @@ func runTick(game flat_game.IGame, parent flat_game.IEntity, entity flat_game.IE
 	entity.Tick(game, parent, delta)
 
 	entity.UpdateChildrenNames(childrenToPersist)
+}
+
+func (game *Game) onKeyEvent(key input.Key, event input.KeyEvent) {
+	game.currentScene.OnKeyEvent(key, event)
 }

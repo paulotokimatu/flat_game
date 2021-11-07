@@ -15,9 +15,9 @@ import (
 )
 
 type OpenGl struct {
-	// game        internal.IGame
 	bgColor       utils.Vec3
 	keysPressed   [glfw.KeyLast]bool
+	onKeyEvent    flat_game.OnKeyEventFunction
 	renderer      *SpriteRenderer
 	labelRenderer *LabelRenderer
 	shaders       map[string]*Shader
@@ -28,9 +28,9 @@ func (openGl *OpenGl) Name() string {
 	return "opengl"
 }
 
-func (openGl *OpenGl) Setup(config *flat_game.Config) {
-	// openGl.game = game
+func (openGl *OpenGl) Setup(config *flat_game.Config, onKeyEvent flat_game.OnKeyEventFunction) {
 	openGl.bgColor = config.BgColor
+	openGl.onKeyEvent = onKeyEvent
 
 	shaders := make(map[string]*Shader)
 	openGl.shaders = shaders
@@ -63,7 +63,6 @@ func (openGl *OpenGl) Setup(config *flat_game.Config) {
 	version := gl.GoStr(gl.GetString(gl.VERSION))
 	fmt.Println("OpenGL version", version)
 
-	// gl.Enable(gl.DEPTH)
 	gl.Enable(gl.BLEND)
 	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 	gl.Disable(gl.DEPTH_TEST)
@@ -107,7 +106,6 @@ func (openGl *OpenGl) PreTick() {
 	glfw.PollEvents()
 
 	gl.ClearColor(openGl.bgColor.X, openGl.bgColor.Y, openGl.bgColor.Z, 1.0)
-	// gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
@@ -128,14 +126,14 @@ func (openGl *OpenGl) keyCallback(window *glfw.Window, key glfw.Key, scancode in
 	}
 
 	// We do not need to do much to map glfw values since our map was based on glfw itself
-	// transformedKey := input.Key(key)
+	transformedKey := input.Key(key)
 
 	if action == glfw.Press && !openGl.keysPressed[key] {
 		openGl.keysPressed[key] = true
-		// openGl.game.OnKeyEvent(transformedKey, input.EventKeyPressed)
+		openGl.onKeyEvent(transformedKey, input.EventKeyPressed)
 	} else if action == glfw.Release && openGl.keysPressed[key] {
 		openGl.keysPressed[key] = false
-		// openGl.game.OnKeyEvent(transformedKey, input.EventKeyReleased)
+		openGl.onKeyEvent(transformedKey, input.EventKeyReleased)
 	}
 }
 

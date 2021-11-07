@@ -14,7 +14,8 @@ type GameMockGraphics struct {
 	flat_game.IGraphics
 }
 
-func (entity *GameMockGraphics) Setup(config *flat_game.Config) {}
+func (entity *GameMockGraphics) Setup(config *flat_game.Config, onKeyEvent flat_game.OnKeyEventFunction) {
+}
 
 func (entity *GameMockGraphics) Tick() {}
 

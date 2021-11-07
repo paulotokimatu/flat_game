@@ -5,6 +5,8 @@ import (
 	"flat_game/utils"
 )
 
+type OnKeyEventFunction func(key input.Key, event input.KeyEvent)
+
 type IGraphics interface {
 	DrawLabel(font IFont, text string, position *utils.Vec2, color *utils.Vec3)
 
@@ -18,8 +20,7 @@ type IGraphics interface {
 
 	PreTick()
 
-	// Setup(Config, IGame)
-	Setup(config *Config)
+	Setup(config *Config, onKeyEvent OnKeyEventFunction)
 
 	Terminate()
 
