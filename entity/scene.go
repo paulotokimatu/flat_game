@@ -21,7 +21,7 @@ func NewScene(config *Config) *Scene {
 }
 
 func (scene *Scene) Tick(game flat_game.IGame, parent flat_game.IEntity, delta float32) {
-	physics.ExecuteCollisions(scene.collisions)
+	physics.ExecuteCollisions(game, scene.collisions)
 }
 
 func (scene *Scene) OnKeyEvent(key input.Key, event input.KeyEvent) {

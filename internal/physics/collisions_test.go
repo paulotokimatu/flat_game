@@ -15,7 +15,7 @@ type MockEntity struct {
 	CollisionHappened bool
 }
 
-func (entity *MockEntity) OnCollision(externalEntity flat_game.IEntity) {
+func (entity *MockEntity) OnCollision(game flat_game.IGame, externalEntity flat_game.IEntity) {
 	entity.CollisionHappened = true
 }
 
@@ -74,7 +74,7 @@ func TestShouldExecuteCollisionChecks(t *testing.T) {
 	collisions = append(collisions, [2]flat_game.IEntity{entity1, entity2})
 	collisions = append(collisions, [2]flat_game.IEntity{entity3, entity4})
 
-	physics.ExecuteCollisions(collisions)
+	physics.ExecuteCollisions(nil, collisions)
 
 	assert.False(t, entity1.CollisionHappened, "collision should not have happened")
 	assert.False(t, entity2.CollisionHappened, "collision should not have happened")

@@ -4,6 +4,7 @@ import (
 	"flat_game"
 	"flat_game/input"
 	graphicsLib "flat_game/internal/graphics"
+	"fmt"
 	"time"
 )
 
@@ -13,6 +14,7 @@ type Game struct {
 	fonts        map[string]flat_game.IFont
 	graphics     flat_game.IGraphics
 	lastTick     time.Time
+	scenes       map[string]flat_game.IScene
 	textures     map[string]flat_game.ITexture
 }
 
@@ -30,6 +32,7 @@ func NewGameWithGraphics(config flat_game.Config, graphics flat_game.IGraphics) 
 		config:   config,
 		fonts:    map[string]flat_game.IFont{},
 		graphics: graphics,
+		scenes:   map[string]flat_game.IScene{},
 		textures: map[string]flat_game.ITexture{},
 	}
 
@@ -106,12 +109,43 @@ func (game *Game) TextureByName(name string) flat_game.ITexture {
 	return game.textures[name]
 }
 
-func (game *Game) Scene() flat_game.IScene {
+func (game *Game) AddScene(scene flat_game.IScene) {
+	if game.scenes == nil {
+		game.scenes = map[string]flat_game.IScene{}
+	}
+
+	game.scenes[scene.Name()] = scene
+}
+
+func (game *Game) CurrentScene() flat_game.IScene {
 	return game.currentScene
 }
 
-func (game *Game) SetScene(scene flat_game.IScene) {
+func (game *Game) DeleteScene(sceneName string) {
+	if game.CurrentScene().Name() == sceneName {
+		fmt.Println(sceneName)
+		panic("cannot delete current scene")
+	}
+
+	delete(game.scenes, sceneName)
+}
+
+func (game *Game) SceneByName(sceneName string) flat_game.IScene {
+	return game.scenes[sceneName]
+}
+
+func (game *Game) SetScene(scene flat_game.IScene, deletePreviousScene bool) {
+	previousScene := game.CurrentScene()
+
+	if _, ok := game.scenes[scene.Name()]; !ok {
+		game.AddScene(scene)
+	}
+
 	game.currentScene = scene
+
+	if game.currentScene != nil && deletePreviousScene {
+		game.DeleteScene(previousScene.Name())
+	}
 }
 
 func (game *Game) AddFont(

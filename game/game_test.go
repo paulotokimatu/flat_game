@@ -42,7 +42,7 @@ func TestShouldTickEntities(t *testing.T) {
 	delta := float32(1)
 
 	scene := entity.NewScene(&entity.Config{Name: "foo"})
-	mockGame.SetScene(scene)
+	mockGame.SetScene(scene, false)
 
 	entity1 := &GameMockEntity{name: "entity1"}
 	entity1.SetPendingRemoval(true)

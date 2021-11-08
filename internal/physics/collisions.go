@@ -17,14 +17,14 @@ func doCollisionsOverlap(entityA flat_game.IEntity, entityB flat_game.IEntity) b
 	return collisionX && collisionY
 }
 
-func ExecuteCollisions(entities [][2]flat_game.IEntity) {
+func ExecuteCollisions(game flat_game.IGame, entities [][2]flat_game.IEntity) {
 	for i := 0; i < len(entities); i++ {
 		entityA := entities[i][0]
 		entityB := entities[i][1]
 
 		if doCollisionsOverlap(entityA, entityB) {
-			entityA.OnCollision(entityB)
-			entityB.OnCollision(entityA)
+			entityA.OnCollision(game, entityB)
+			entityB.OnCollision(game, entityA)
 		}
 	}
 }

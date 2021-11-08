@@ -11,7 +11,7 @@ type IEntity interface {
 
 	Name() string
 
-	OnCollision(externalEntity IEntity)
+	OnCollision(game IGame, externalEntity IEntity)
 
 	Position() *utils.Vec2
 

@@ -98,8 +98,7 @@ func (entity *BaseEntity) RemoveChild(child flat_game.IEntity) {
 	delete(entity.children, child.Name())
 }
 
-func (entity *BaseEntity) OnCollision(externalEntity flat_game.IEntity) {
-}
+func (entity *BaseEntity) OnCollision(game flat_game.IGame, externalEntity flat_game.IEntity) {}
 
 func (entity *BaseEntity) IsPendingRemoval() bool {
 	return entity.pendingRemoval

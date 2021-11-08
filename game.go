@@ -5,13 +5,19 @@ type IGame interface {
 
 	AddTexture(name string, fileName string) (ITexture, error)
 
+	AddScene(scene IScene)
+
 	Config() Config
+
+	CurrentScene() IScene
 
 	Graphics() IGraphics
 
-	Scene() IScene
+	DeleteScene(sceneName string)
 
-	SetScene(scene IScene)
+	SceneByName(sceneName string) IScene
+
+	SetScene(scene IScene, deletePreviousScene bool)
 
 	TextureByName(name string) ITexture
 }
