@@ -1,4 +1,4 @@
-module flat_game
+module github.com/paulotokimatu/flat_game
 
 go 1.16
 
