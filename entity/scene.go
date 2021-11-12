@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"flat_game"
-	"flat_game/input"
-	"flat_game/internal/physics"
+	"github.com/paulotokimatu/flat_game"
+	"github.com/paulotokimatu/flat_game/input"
+	"github.com/paulotokimatu/flat_game/internal/physics"
 )
 
 type Scene struct {

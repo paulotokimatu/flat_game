@@ -1,8 +1,9 @@
 package entity_test
 
 import (
-	"flat_game/entity"
 	"testing"
+
+	"github.com/paulotokimatu/flat_game/entity"
 
 	"github.com/stretchr/testify/assert"
 )

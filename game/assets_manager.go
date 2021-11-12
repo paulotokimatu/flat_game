@@ -1,8 +1,9 @@
 package game
 
 import (
-	"flat_game"
-	graphicsLib "flat_game/internal/graphics"
+	"github.com/paulotokimatu/flat_game"
+
+	graphicsLib "github.com/paulotokimatu/flat_game/internal/graphics"
 )
 
 type AssetsManager struct {

@@ -1,9 +1,10 @@
 package graphics
 
 import (
-	"flat_game/utils"
 	"fmt"
 	"strings"
+
+	"github.com/paulotokimatu/flat_game/utils"
 
 	"github.com/go-gl/gl/v4.1-core/gl"
 	"github.com/go-gl/mathgl/mgl32"

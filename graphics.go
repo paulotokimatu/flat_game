@@ -1,8 +1,8 @@
 package flat_game
 
 import (
-	"flat_game/input"
-	"flat_game/utils"
+	"github.com/paulotokimatu/flat_game/input"
+	"github.com/paulotokimatu/flat_game/utils"
 )
 
 type OnKeyEventFunction func(key input.Key, event input.KeyEvent)

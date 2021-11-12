@@ -1,13 +1,15 @@
 package graphics
 
 import (
-	"flat_game"
-	"flat_game/input"
-	"flat_game/utils"
 	"fmt"
 	"log"
 	"path/filepath"
 	"runtime"
+
+	"github.com/paulotokimatu/flat_game"
+
+	"github.com/paulotokimatu/flat_game/input"
+	"github.com/paulotokimatu/flat_game/utils"
 
 	"github.com/go-gl/gl/v4.1-core/gl"
 	"github.com/go-gl/glfw/v3.3/glfw"

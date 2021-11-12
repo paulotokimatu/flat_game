@@ -1,8 +1,8 @@
 package entity
 
 import (
-	"flat_game"
-	"flat_game/utils"
+	"github.com/paulotokimatu/flat_game"
+	"github.com/paulotokimatu/flat_game/utils"
 )
 
 type SpriteEnt struct {

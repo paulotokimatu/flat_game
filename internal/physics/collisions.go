@@ -1,6 +1,6 @@
 package physics
 
-import "flat_game"
+import "github.com/paulotokimatu/flat_game"
 
 func doCollisionsOverlap(entityA flat_game.IEntity, entityB flat_game.IEntity) bool {
 	positionA := entityA.Position()

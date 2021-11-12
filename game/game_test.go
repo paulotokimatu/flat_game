@@ -1,10 +1,12 @@
 package game_test
 
 import (
-	"flat_game"
-	"flat_game/entity"
-	"flat_game/game"
 	"testing"
+
+	"github.com/paulotokimatu/flat_game"
+
+	"github.com/paulotokimatu/flat_game/entity"
+	"github.com/paulotokimatu/flat_game/game"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

@@ -1,7 +1,7 @@
 package game
 
 import (
-	"flat_game"
+	"github.com/paulotokimatu/flat_game"
 )
 
 type ScenesManager struct {

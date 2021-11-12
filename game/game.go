@@ -1,9 +1,11 @@
 package game
 
 import (
-	"flat_game"
-	"flat_game/input"
 	"time"
+
+	"github.com/paulotokimatu/flat_game"
+
+	"github.com/paulotokimatu/flat_game/input"
 )
 
 type Game struct {

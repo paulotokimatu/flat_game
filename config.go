@@ -2,7 +2,8 @@ package flat_game
 
 import (
 	"encoding/json"
-	"flat_game/utils"
+
+	"github.com/paulotokimatu/flat_game/utils"
 )
 
 type Config struct {

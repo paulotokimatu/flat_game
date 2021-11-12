@@ -1,6 +1,6 @@
 package flat_game
 
-import "flat_game/input"
+import "github.com/paulotokimatu/flat_game/input"
 
 type IScene interface {
 	IEntity

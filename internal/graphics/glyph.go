@@ -1,10 +1,11 @@
 package graphics
 
 import (
-	"flat_game"
 	"fmt"
 	"image"
 	"image/draw"
+
+	"github.com/paulotokimatu/flat_game"
 
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"

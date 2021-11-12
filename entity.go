@@ -1,7 +1,7 @@
 package flat_game
 
 import (
-	"flat_game/utils"
+	"github.com/paulotokimatu/flat_game/utils"
 )
 
 type IEntity interface {

@@ -1,11 +1,13 @@
 package physics_test
 
 import (
-	"flat_game"
-	"flat_game/entity"
-	"flat_game/internal/physics"
-	"flat_game/utils"
 	"testing"
+
+	"github.com/paulotokimatu/flat_game"
+
+	"github.com/paulotokimatu/flat_game/entity"
+	"github.com/paulotokimatu/flat_game/internal/physics"
+	"github.com/paulotokimatu/flat_game/utils"
 
 	"github.com/stretchr/testify/assert"
 )

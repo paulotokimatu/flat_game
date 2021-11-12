@@ -1,9 +1,11 @@
 package game
 
 import (
-	"flat_game"
-	"flat_game/internal/graphics"
 	"fmt"
+
+	"github.com/paulotokimatu/flat_game"
+
+	"github.com/paulotokimatu/flat_game/internal/graphics"
 )
 
 type GraphicsLib string

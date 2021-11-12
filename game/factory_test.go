@@ -1,8 +1,9 @@
 package game_test
 
 import (
-	"flat_game/game"
 	"testing"
+
+	"github.com/paulotokimatu/flat_game/game"
 
 	"github.com/stretchr/testify/assert"
 )

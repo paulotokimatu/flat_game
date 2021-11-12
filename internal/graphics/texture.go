@@ -1,7 +1,7 @@
 package graphics
 
 import (
-	"flat_game/utils"
+	"github.com/paulotokimatu/flat_game/utils"
 
 	"github.com/go-gl/gl/v4.1-core/gl"
 )

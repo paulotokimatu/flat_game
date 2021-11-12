@@ -1,9 +1,10 @@
 package entity_test
 
 import (
-	"flat_game/entity"
-	"flat_game/input"
 	"testing"
+
+	"github.com/paulotokimatu/flat_game/entity"
+	"github.com/paulotokimatu/flat_game/input"
 
 	"github.com/stretchr/testify/mock"
 )
