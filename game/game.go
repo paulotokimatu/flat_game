@@ -89,6 +89,10 @@ func (game *Game) onKeyEvent(key input.Key, event input.KeyEvent) {
 }
 
 func runTick(game flat_game.IGame, parent flat_game.IEntity, entity flat_game.IEntity, delta float32) {
+	if entity == nil {
+		return
+	}
+
 	for _, childToAdd := range entity.ChildrenToAdd() {
 		entity.CommitChild(childToAdd)
 	}
