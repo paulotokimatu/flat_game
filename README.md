@@ -234,3 +234,8 @@ func (ent *MovementEnt) Tick(game flat_game.IGame, parent flat_game.IEntity, del
 	parent.SetPosition(newPosition)
 }
 ```
+
+# Acknowledgements
+
+Much of the code related to OpenGL was based on:
+https://learnopengl.com/
