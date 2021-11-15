@@ -12,12 +12,12 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type LabelEntMockGame struct {
+type LabelEntDoubleGame struct {
 	game.Game
 	graphics flat_game.IGraphics
 }
 
-func (game *LabelEntMockGame) Graphics() flat_game.IGraphics {
+func (game *LabelEntDoubleGame) Graphics() flat_game.IGraphics {
 	return game.graphics
 }
 
@@ -33,7 +33,7 @@ func (graphics *LabelEntMockGraphics) DrawLabel(font flat_game.IFont, text strin
 func TestTickShouldDraw(t *testing.T) {
 	mockGraphics := LabelEntMockGraphics{}
 
-	game := LabelEntMockGame{
+	game := LabelEntDoubleGame{
 		graphics: &mockGraphics,
 	}
 	ent := entity.NewLabelEnt(&entity.Config{Name: "label"}, nil, "foo", nil)

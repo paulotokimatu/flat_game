@@ -13,12 +13,12 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type SpriteEntMockGame struct {
+type SpriteEntDoubleGame struct {
 	game.Game
 	graphics flat_game.IGraphics
 }
 
-func (game *SpriteEntMockGame) Graphics() flat_game.IGraphics {
+func (game *SpriteEntDoubleGame) Graphics() flat_game.IGraphics {
 	return game.graphics
 }
 
@@ -34,7 +34,7 @@ func (graphics *SpriteEntMockGraphics) DrawSprite(texture flat_game.ITexture, po
 func TestSpriteExtTickShouldDraw(t *testing.T) {
 	mockGraphics := SpriteEntMockGraphics{}
 
-	game := SpriteEntMockGame{
+	game := SpriteEntDoubleGame{
 		graphics: &mockGraphics,
 	}
 	ent := entity.NewSpriteEnt(&entity.Config{Name: "foo"}, nil, true)

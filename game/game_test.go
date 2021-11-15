@@ -12,14 +12,14 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type GameMockGraphics struct {
+type GameDoubleGraphics struct {
 	flat_game.IGraphics
 }
 
-func (entity *GameMockGraphics) Setup(config *flat_game.Config, onKeyEvent flat_game.OnKeyEventFunction) {
+func (entity *GameDoubleGraphics) Setup(config *flat_game.Config, onKeyEvent flat_game.OnKeyEventFunction) {
 }
 
-func (entity *GameMockGraphics) Tick() {}
+func (entity *GameDoubleGraphics) Tick() {}
 
 type GameMockEntity struct {
 	name string
@@ -36,30 +36,30 @@ func (entity *GameMockEntity) Tick(game flat_game.IGame, parent flat_game.IEntit
 }
 
 func TestShouldTickEntities(t *testing.T) {
-	mockGame := game.NewGameWithGraphics(
+	gameTest := game.NewGameWithGraphics(
 		flat_game.Config{},
-		&GameMockGraphics{},
+		&GameDoubleGraphics{},
 	)
 
 	delta := float32(1)
 
 	scene := entity.NewScene(&entity.Config{Name: "foo"})
-	mockGame.SetScene(scene, false)
+	gameTest.SetScene(scene, false)
 
 	entity1 := &GameMockEntity{name: "entity1"}
 	entity1.SetPendingRemoval(true)
 
 	entity2 := &GameMockEntity{name: "entity2"}
-	entity2.On("Tick", mockGame, scene, delta).Return(nil)
+	entity2.On("Tick", gameTest, scene, delta).Return(nil)
 
 	scene.AddChild(entity1)
 	scene.AddChild(entity2)
 
-	mockGame.Tick(delta)
+	gameTest.Tick(delta)
 
 	assert.Nil(t, scene.ChildByName("entity1"))
 	assert.NotNil(t, scene.ChildByName("entity2"))
 
-	entity1.AssertNotCalled(t, "Tick", mockGame, scene, delta)
-	entity2.AssertCalled(t, "Tick", mockGame, scene, delta)
+	entity1.AssertNotCalled(t, "Tick", gameTest, scene, delta)
+	entity2.AssertCalled(t, "Tick", gameTest, scene, delta)
 }
