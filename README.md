@@ -235,6 +235,10 @@ func (ent *MovementEnt) Tick(game flat_game.IGame, parent flat_game.IEntity, del
 }
 ```
 
+# Other examples
+
+A more complete sample of usage can be found [here](https://github.com/paulotokimatu/flying_square), in this very basic clone of Flappy Birds.
+
 # Acknowledgements
 
 Much of the code related to OpenGL was based on:
